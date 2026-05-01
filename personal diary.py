@@ -74,3 +74,71 @@ while True:
             print()
         else:
             print("No results found!\n")
+
+    elif choice == "4":
+        file = open(DIARY_FILE, "r")
+        lines = file.readlines()
+        file.close()
+        
+        if len(lines) <= 1:
+            print("No entries yet!\n")
+        else:
+            print("\n--- Your Diary Entries ---")
+            for i in range(len(lines)):
+                if i == 0:
+                    continue
+                print(str(i) + ". " + lines[i].strip())
+            
+            line_num = int(input("Enter line number to update: "))
+            
+            if line_num > 0 and line_num < len(lines):
+                new_entry = input("Enter new content: ")
+                current_date = datetime.now().strftime("%Y-%m-%d %H:%M")
+                lines[line_num] = current_date + " | " + new_entry + "\n"
+                file = open(DIARY_FILE, "w")
+                file.writelines(lines)
+                file.close()
+                print("Entry updated!\n")
+            else:
+                print("Invalid line number!\n")
+    
+    elif choice == "5":
+        file = open(DIARY_FILE, "r")
+        lines = file.readlines()
+        file.close()
+        
+        if len(lines) <= 1:
+            print("No entries yet!\n")
+        else:
+            print("\n--- Your Diary Entries ---")
+            for i in range(len(lines)):
+                if i == 0:
+                    continue
+                print(str(i) + ". " + lines[i].strip())
+            
+            line_num = int(input("Enter line number to delete: "))
+            
+            if line_num > 0 and line_num < len(lines):
+                deleted = lines[line_num]
+                lines.pop(line_num)
+                file = open(DIARY_FILE, "w")
+                file.writelines(lines)
+                file.close()
+                print("Deleted: " + deleted.strip() + "\n")
+            else:
+                print("Invalid line number!\n")
+    
+    elif choice == "6":
+        file = open(DIARY_FILE, "r")
+        lines = file.readlines()
+        file.close()
+        
+        entry_count = len(lines) - 1
+        print(f"\n--- Total Entries: {entry_count} ---\n")
+    
+    elif choice == "7":
+        print("Goodbye!")
+        break
+    
+    else:
+        print("Invalid choice! Try again.\n")
